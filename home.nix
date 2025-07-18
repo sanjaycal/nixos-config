@@ -23,6 +23,8 @@
     pkgs.ripgrep
     pkgs.fd
     pkgs.neovim
+    pkgs.iverilog
+    pkgs.gitui
   ];
 
   # Basic configuration for git

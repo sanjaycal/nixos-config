@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      #./home.nix
+      # ./home.nix
     ];
 
   # Bootloader.
@@ -155,9 +155,8 @@
   curl
   zlib
   gh
-  iverilog
   gitui
-
+  iverilog
   ];
 
 
