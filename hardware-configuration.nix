@@ -18,6 +18,11 @@
       fsType = "ext4";
     };
 
+  fileSystems."/home/san/files" =
+    {  device = "/dev/mapper/2tbdisk-models"; 
+      fsType = "ext4";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/7E9D-F867";
       fsType = "vfat";

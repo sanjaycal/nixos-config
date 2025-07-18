@@ -66,7 +66,7 @@
   boot.kernelParams = ["nvidia-drm.modeset=1"];
 
   services.xserver.videoDrivers = ["nvidia"];
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   hardware.nvidia.open = true;
 
@@ -112,6 +112,17 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.steam.enable = true;
+
+  #the selection menu
+  programs.uwsm.enable = true;
+  programs.uwsm.waylandCompositors = {
+  	hyprland = {
+		prettyName = "Hyprland";
+		comment = "Hyprland compositor managed by UWSM";
+		binPath = "/run/current-system/sw/bin/Hyprland";
+	};
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -126,6 +137,27 @@
   wofi
   google-chrome
   git
+  ollama-cuda
+  #open-webui
+  cargo
+  python314
+  uv
+  libgcc
+  nodejs_24
+  waybar
+  gnumake
+  hyprshot
+  blender
+  yazi
+  hyprnotify
+  libnotify
+  gcc
+  curl
+  zlib
+  gh
+  iverilog
+  gitui
+
   ];
 
 
