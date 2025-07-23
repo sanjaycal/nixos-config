@@ -164,8 +164,27 @@
   warsow
   basilk
   helix
+  gtkwave
+  unzip
+  wgpu-native
+  wgpu-utils
   ];
 
+  nix = {
+    extraOptions = ''
+      extra-experimental-features = nix-command flakes
+    '';
+    settings = {
+      substituters = [
+        "https://nix-cache.fossi-foundation.org"
+	"https://openlane.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-cache.fossi-foundation.org:3+K59iFwXqKsL7BNu6Guy0v+uTlwsxYQxjspXzqLYQs="
+	"openlane.cachix.org-1:qqdwh+QMNGmZAuyeQJTH9ErW57OWSvdtuwfBKdS254E="
+      ];
+    };
+  };
 
 
 
