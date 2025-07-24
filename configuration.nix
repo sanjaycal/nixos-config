@@ -168,6 +168,8 @@
   unzip
   wgpu-native
   wgpu-utils
+  pkg-config
+  alsa-oss
   ];
 
   nix = {
