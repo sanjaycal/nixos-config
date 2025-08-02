@@ -77,6 +77,15 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   boot.blacklistedKernelModules = ["nouveau"];
+  hardware.bluetooth = {
+  enable = true;
+  powerOnBoot = true;
+  settings = {
+    General = {
+      Experimental = true; # Show battery charge of Bluetooth devices
+    };
+  };
+  };
 
 
   # Enable CUPS to print documents.
@@ -170,6 +179,8 @@
   wgpu-utils
   pkg-config
   alsa-oss
+  btop-cuda
+  nautilus
   ];
 
   nix = {
