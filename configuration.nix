@@ -181,6 +181,7 @@
   alsa-oss
   btop-cuda
   nautilus
+  pavucontrol
   ];
 
   nix = {
