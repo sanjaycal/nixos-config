@@ -147,10 +147,9 @@
   wofi
   google-chrome
   git
-  ollama-cuda
   #open-webui
   cargo
-  python314
+  python313
   uv
   libgcc
   nodejs_24
@@ -182,6 +181,10 @@
   btop-cuda
   nautilus
   pavucontrol
+  obsidian
+  rustup
+  jan
+  nodejs_24
   ];
 
   nix = {
@@ -199,6 +202,12 @@
       ];
     };
   };
+
+  #services.ollama = {
+  #	enable= true;
+  #	acceleration = "cuda";
+  #	models = "~/files/ollama";
+  #};
 
 
 
