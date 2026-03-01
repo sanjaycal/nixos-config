@@ -107,6 +107,17 @@
     #media-session.enable = true;
   };
 
+  services.foundryvtt = {
+    enable = false;
+    hostName = "san";
+    minifyStaticFiles = true;
+    proxyPort = 443;
+    proxySSL = true;
+    upnp = false;
+  };
+
+  services.tailscale.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -136,6 +147,12 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config.segger-jlink.acceptLicense = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "segger-jlink-qt4-874"
+  ];
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -169,7 +186,6 @@
   iverilog
   atlauncher
   game-rs
-  warsow
   basilk
   helix
   gtkwave
@@ -185,7 +201,20 @@
   rustup
   jan
   nodejs_24
+  lutris
+  obs-studio
+  prismlauncher
+  man-pages
+  man-pages-posix
+  gimp
+  steam-run
+  cmake
+  #stlink
+  llama-cpp
+  tailscale
   ];
+
+  services.udev.packages = [ pkgs.stlink pkgs.segger-jlink ];
 
   nix = {
     extraOptions = ''
@@ -208,6 +237,8 @@
   #	acceleration = "cuda";
   #	models = "~/files/ollama";
   #};
+
+  documentation.dev.enable = true;
 
 
 
