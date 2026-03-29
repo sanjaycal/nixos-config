@@ -69,13 +69,36 @@
   services.xserver.videoDrivers = ["nvidia"];
   hardware.graphics.enable = true;
 
-  hardware.nvidia.open = true;
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.powerManagement.enable = true;
+  # 2. Update your NVIDIA block to include PRIME offloading
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      
+      # REPLACE THESE with the Bus IDs you found in Step 1!
+      intelBusId = "PCI:0:2:0"; 
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
 
+  # 3. Explicitly enable XDG Portals for Pipewire Screen Sharing
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # Good fallback for generic apps
+  };
+  
   boot.blacklistedKernelModules = ["nouveau"];
   hardware.bluetooth = {
   enable = true;
@@ -116,7 +139,15 @@
     upnp = false;
   };
 
+  services.hermes-agent = {
+    enable = true;
+    settings.model.default = "anthropic/claude-sonnet-4";
+    environmentFiles = [ "/home/san/.config/hermes/env"];
+    addToSystemPackages = true;
+  };
+
   services.tailscale.enable = true;
+  programs.coolercontrol.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -125,7 +156,7 @@
   users.users.san = {
     isNormalUser = true;
     description = "san";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
     	discord
     ];
@@ -152,6 +183,8 @@
   nixpkgs.config.permittedInsecurePackages = [
     "segger-jlink-qt4-874"
   ];
+
+  virtualisation.docker.enable = true;
 
 
   # List packages installed in system profile. To search, run:
@@ -210,8 +243,14 @@
   steam-run
   cmake
   #stlink
-  llama-cpp
   tailscale
+  ngrok
+  coolercontrol.coolercontrol-gui
+  docker
+  opencode
+  llama-cpp-vulkan
+  inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+  playerctl
   ];
 
   services.udev.packages = [ pkgs.stlink pkgs.segger-jlink ];
